@@ -3,7 +3,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular';
 import { RouterModule } from '@angular/router';
 
-export const spartacusWith = (modules) =>
+export const spartacusWith = (modules, providers = []) =>
   moduleMetadata({
     imports: [
       RouterModule.forRoot([], {
@@ -24,5 +24,6 @@ export const spartacusWith = (modules) =>
         provide: APP_BASE_HREF,
         useValue: '/',
       },
+      ...providers,
     ],
   });
