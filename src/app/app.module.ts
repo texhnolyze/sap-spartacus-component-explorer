@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { translations, translationChunksConfig } from '@spartacus/assets';
 import { B2cStorefrontModule } from '@spartacus/storefront';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,9 +19,12 @@ import { B2cStorefrontModule } from '@spartacus/storefront';
     B2cStorefrontModule.withConfig({
       backend: {
         occ: {
-          baseUrl: 'http://localhost:5050',
+          baseUrl: environment.occBaseUrl,
           prefix: '/rest/v2/',
         },
+      },
+      context: {
+        baseSite: ['electronics-spa'],
       },
       i18n: {
         resources: translations,
