@@ -16,6 +16,9 @@ export const spartacusWith = (modules, providers = []) =>
             prefix: '/rest/v2/',
           },
         },
+        context: {
+          baseSite: ['electronics-spa'],
+        },
       }),
       ...modules,
     ],
