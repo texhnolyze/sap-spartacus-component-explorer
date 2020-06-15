@@ -7,5 +7,6 @@ module.exports = {
     "@storybook/addon-storysource",
     "@storybook/addon-knobs",
     "@storybook/theming",
+    "storybook-design-token",
   ],
 };
