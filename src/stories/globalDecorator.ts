@@ -2,6 +2,7 @@ import { B2cStorefrontModule } from '@spartacus/storefront';
 import { APP_BASE_HREF } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular';
 import { RouterModule } from '@angular/router';
+import { translationChunksConfig, translations } from '@spartacus/assets';
 
 export const spartacusWith = (modules, providers = []) =>
   moduleMetadata({
@@ -18,6 +19,11 @@ export const spartacusWith = (modules, providers = []) =>
         },
         context: {
           baseSite: ['electronics-spa'],
+        },
+        i18n: {
+          resources: translations,
+          chunks: translationChunksConfig,
+          fallbackLang: 'en',
         },
       }),
       ...modules,
