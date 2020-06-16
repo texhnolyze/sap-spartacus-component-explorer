@@ -4,7 +4,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { RouterModule } from '@angular/router';
 import { translationChunksConfig, translations } from '@spartacus/assets';
 
-export const spartacusWith = (modules, providers = []) =>
+export const setupSpartacus = (modules, providers = []) =>
   moduleMetadata({
     imports: [
       RouterModule.forRoot([], {

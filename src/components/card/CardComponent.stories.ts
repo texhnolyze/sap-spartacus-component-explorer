@@ -1,11 +1,11 @@
 import { CardComponent, CardModule, ICON_TYPE } from '@spartacus/storefront';
-import { spartacusWith } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 
 export default {
   title: 'Card',
-  decorators: [spartacusWith([CardModule])],
+  decorators: [setupSpartacus([CardModule])],
   component: CardComponent,
 };
 
