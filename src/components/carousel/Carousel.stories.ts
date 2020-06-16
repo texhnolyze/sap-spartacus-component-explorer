@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 
 export default {
-  title: 'CarouselComponent',
+  title: 'Carousel',
   decorators: [setupSpartacus([CarouselModule])],
   component: CarouselComponent,
 };

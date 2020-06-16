@@ -4,7 +4,7 @@ import { boolean, number } from '@storybook/addon-knobs';
 import { FormControl } from '@angular/forms';
 
 export default {
-  title: 'ItemCounterComponent',
+  title: 'ItemCounter',
   decorators: [setupSpartacus([ItemCounterModule])],
   component: ItemCounterComponent,
 };

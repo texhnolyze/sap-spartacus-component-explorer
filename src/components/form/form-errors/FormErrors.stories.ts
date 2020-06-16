@@ -17,12 +17,12 @@ control.setErrors({
 });
 
 export default {
-  title: 'FormErrorsComponent',
+  title: 'FormErrors',
   decorators: [setupSpartacus([FormErrorsModule])],
   component: FormErrorsComponent,
 };
 
-export const AllFormErrors = () => ({
+export const Default = () => ({
   component: FormErrorsComponent,
   props: {
     control,
