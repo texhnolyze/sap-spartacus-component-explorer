@@ -4,7 +4,7 @@ import {
   CarouselComponent,
   CmsComponentData,
 } from '@spartacus/storefront';
-import { spartacusWith } from './globalDecorator';
+import { spartacusWith } from '../../../spartacusStorybookModuleMetadata';
 import { action } from '@storybook/addon-actions';
 import { text, boolean, object } from '@storybook/addon-knobs';
 import { PageMetaService } from '@spartacus/core';

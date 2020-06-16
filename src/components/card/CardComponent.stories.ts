@@ -1,5 +1,5 @@
 import { CardComponent, CardModule, ICON_TYPE } from '@spartacus/storefront';
-import { spartacusWith } from './globalDecorator';
+import { spartacusWith } from '../../spartacusStorybookModuleMetadata';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 

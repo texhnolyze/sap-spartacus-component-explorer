@@ -1,6 +1,6 @@
 import { CarouselComponent, CarouselModule } from '@spartacus/storefront';
 import { of } from 'rxjs';
-import { spartacusWith } from './globalDecorator';
+import { spartacusWith } from '../../spartacusStorybookModuleMetadata';
 
 export default {
   title: 'CarouselComponent',

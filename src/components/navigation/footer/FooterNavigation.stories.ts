@@ -5,7 +5,7 @@ import {
   CmsComponentData,
   NavigationService,
 } from '@spartacus/storefront';
-import { spartacusWith } from './globalDecorator';
+import { spartacusWith } from '../../../spartacusStorybookModuleMetadata';
 import { text, boolean, object } from '@storybook/addon-knobs';
 import { of } from 'rxjs';
 
