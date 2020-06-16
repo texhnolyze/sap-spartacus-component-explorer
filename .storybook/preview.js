@@ -9,8 +9,7 @@ const scssReq = require.context("!!raw-loader!../src", true, /.\.scss$/);
 const scssTokenFiles = scssReq
   .keys()
   .map((filename) => ({ filename, content: scssReq(filename).default }));
-console.log("xxxxx");
-console.log(scssTokenFiles);
+
 const lessReq = require.context("!!raw-loader!../src", true, /.\.less$/);
 const lessTokenFiles = lessReq
   .keys()
