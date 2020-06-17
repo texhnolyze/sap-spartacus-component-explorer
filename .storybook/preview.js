@@ -1,3 +1,5 @@
+import "!style-loader!css-loader!sass-loader!./scss-loader.scss";
+
 import { addParameters } from "@storybook/angular";
 
 const cssReq = require.context("!!raw-loader!../src", true, /.\.css$/);
