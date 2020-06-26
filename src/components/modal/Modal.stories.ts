@@ -1,22 +1,27 @@
 import {setupSpartacus} from "../../spartacusStorybookModuleMetadata";
-import {AddedToCartDialogComponent, ModalService} from "@spartacus/storefront";
+import { ModalService} from "@spartacus/storefront";
 import {Component, Input, NgModule} from "@angular/core";
 import {select, boolean, text} from "@storybook/addon-knobs";
 
 @Component({
-  template: `<p>{{ content }}</p>`,
+  template: `<div><button (click)="dismissModal()">X</button><p>{{ content }}</p></div>`,
 })
 class ModalContentComponent {
   @Input()
   content: any
+
+  constructor( protected modalService: ModalService,) {
+  }
+
+  dismissModal(): void {
+    this.modalService.dismissActiveModal('a');
+  }
 }
 
 @Component({
   template: `<button (click)="openModal()">open modal</button>`,
-  providers:  [ ModalService ]
 })
 class ModalHostComponent {
-  modalService: ModalService
   @Input()
   size: any
   @Input()
@@ -24,8 +29,7 @@ class ModalHostComponent {
   @Input()
   content: any
 
-  constructor(modalService: ModalService) {
-    this.modalService = modalService
+  constructor(protected modalService: ModalService) {
   }
 
   openModal() {
