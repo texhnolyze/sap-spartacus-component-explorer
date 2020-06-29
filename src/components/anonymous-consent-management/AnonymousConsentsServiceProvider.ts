@@ -5,6 +5,14 @@ import { action } from '@storybook/addon-actions';
 export const AnonymousConsentsServiceProvider = {
   provide: AnonymousConsentsService,
   useClass: class AnonymousConsentsServiceMock {
+    isBannerVisible = () => of(true);
+    giveAllConsents = (...args) => {
+      action('AnonymousConsentsService.giveAllConsents')(...args);
+      return of(true);
+    };
+    toggleBannerDismissed = action(
+      'AnonymousConsentsService.toggleBannerDismissed'
+    );
     getTemplates() {
       return of([
         {

@@ -2,13 +2,13 @@ import {
   AnonymousConsentDialogComponent,
   AnonymousConsentsDialogModule,
 } from '@spartacus/storefront';
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
-import { AnonymousConsentsServiceProvider } from './AnonymousConsentsServiceProvider';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { AnonymousConsentsServiceProvider } from '../AnonymousConsentsServiceProvider';
 import {
   anonymousConsentsConfig,
   AnonymousConsentsConfigProvider,
-} from './AnonymousConsentsConfigProvider';
-import { LaunchDialogServiceProvider } from './LaunchDialogServiceProvider';
+} from '../AnonymousConsentsConfigProvider';
+import { LaunchDialogServiceProvider } from '../LaunchDialogServiceProvider';
 
 export default {
   title: 'AnonymousConsentDialog',

@@ -25,6 +25,10 @@ export const setupSpartacus = (modules, providers = []) =>
           chunks: translationChunksConfig,
           fallbackLang: 'en',
         },
+        pwa: {
+          enabled: true,
+          addToHomeScreen: true,
+        },
       }),
       ...modules,
     ],
