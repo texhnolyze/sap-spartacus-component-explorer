@@ -12,7 +12,7 @@
     "serve:ssr": "node dist/spartacus-demo-setup/server/main.js",
     "build:ssr": "ng build --prod && ng run spartacus-demo-setup:server:production",
     "prerender": "ng run spartacus-demo-setup:prerender",
-    "storybook-occ-mock": "json-server occ-mock-server/db.json -r occ-mock-server/routes.json -p 3000",
+    "occ-mock": "json-server occ-mock-server/db.json -r occ-mock-server/routes.json -p 3000",
     "storybook": "set STORYBOOK_OCC_BASEURL=http://localhost:3000&& start-storybook -p 6006",
     "build-storybook": "set STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com&& build-storybook",
     "test-chromatic": "set STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com&& chromatic --project-token=ce7bsz2tow8 --exit-zero-on-changes"
