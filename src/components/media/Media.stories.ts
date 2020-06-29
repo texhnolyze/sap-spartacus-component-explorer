@@ -11,15 +11,15 @@ export default {
 const mediaContainer = {
   tablet: {
     altText: 'tablet',
-    url: 'http://placehold.jp/250x250.png?text=tablet',
+    url: 'https://placehold.jp/250x250.png?text=tablet',
   },
   desktop: {
     altText: 'desktop',
-    url: 'http://placehold.jp/500x250.png?text=desktop',
+    url: 'https://placehold.jp/500x250.png?text=desktop',
   },
   widescreen: {
     altText: 'widescreen',
-    url: 'http://placehold.jp/750x250.png?text=widescreen',
+    url: 'https://placehold.jp/750x250.png?text=widescreen',
   },
 };
 
