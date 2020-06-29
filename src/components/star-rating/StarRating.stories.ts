@@ -4,7 +4,7 @@ import { number } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Start Rating',
+  title: 'Star Rating',
   decorators: [setupSpartacus([StarRatingModule])],
 };
 
