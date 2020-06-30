@@ -1,10 +1,10 @@
 import { SortingComponent } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import { object, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Sorting',
+  title: 'Base/Sorting',
   decorators: [setupSpartacus([])],
 };
 

@@ -1,15 +1,19 @@
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import {
   HamburgerMenuComponent,
   HamburgerMenuModule,
 } from '@spartacus/storefront';
 
 export default {
-  title: 'Hamburger Menu',
+  title: 'Base/HamburgerMenu',
   decorators: [setupSpartacus([HamburgerMenuModule])],
+  parameters: {
+    backgrounds: [
+      { name: 'default', value: 'rgba(69,69,69,0.66)', default: true },
+    ],
+  },
 };
 
 export const Default = () => ({
   component: HamburgerMenuComponent,
-  template: `<div style="background: grey"><cx-hamburger-menu></cx-hamburger-menu></div>`,
 });

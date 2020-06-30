@@ -1,8 +1,8 @@
 import { SkipLinkComponent, SkipLinkModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 
 export default {
-  title: 'SkipLink',
+  title: 'Base/SkipLink',
   decorators: [setupSpartacus([SkipLinkModule])],
 };
 

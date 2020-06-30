@@ -1,8 +1,8 @@
 import { SpinnerComponent, SpinnerModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 
 export default {
-  title: 'Spinner',
+  title: 'Base/Spinner',
   decorators: [setupSpartacus([SpinnerModule])],
 };
 

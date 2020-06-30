@@ -1,10 +1,10 @@
 import { StarRatingComponent, StarRatingModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { number } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Star Rating',
+  title: 'Base/StarRating',
   decorators: [setupSpartacus([StarRatingModule])],
 };
 

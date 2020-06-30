@@ -1,4 +1,4 @@
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { ModalService } from '@spartacus/storefront';
 import { Component, Input, NgModule } from '@angular/core';
 import { select, boolean, text } from '@storybook/addon-knobs';
@@ -53,7 +53,7 @@ class ModalHostComponent {
 class ModalHostModule {}
 
 export default {
-  title: 'Modal',
+  title: 'Base/Modal',
   decorators: [setupSpartacus([ModalHostModule], [])],
 };
 

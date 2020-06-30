@@ -1,5 +1,5 @@
 import { FormErrorsComponent, FormErrorsModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 import { FormControl } from '@angular/forms';
 
@@ -17,7 +17,7 @@ control.setErrors({
 });
 
 export default {
-  title: 'FormErrors',
+  title: 'Base/FormErrors',
   decorators: [setupSpartacus([FormErrorsModule])],
   component: FormErrorsComponent,
 };

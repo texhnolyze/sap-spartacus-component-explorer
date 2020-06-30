@@ -1,10 +1,10 @@
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { MediaComponent, MediaModule } from '@spartacus/storefront';
 import { object, select, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Media',
+  title: 'Base/Media',
   decorators: [setupSpartacus([MediaModule])],
 };
 

@@ -7,7 +7,7 @@ const props = () => ({
 });
 
 export default {
-  title: 'Button',
+  title: 'Base/Button',
 };
 
 export const primary = () => ({

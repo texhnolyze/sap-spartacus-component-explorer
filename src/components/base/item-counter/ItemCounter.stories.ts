@@ -1,10 +1,10 @@
 import { ItemCounterComponent, ItemCounterModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { boolean, number } from '@storybook/addon-knobs';
 import { FormControl } from '@angular/forms';
 
 export default {
-  title: 'ItemCounter',
+  title: 'Base/ItemCounter',
   decorators: [setupSpartacus([ItemCounterModule])],
   component: ItemCounterComponent,
 };
