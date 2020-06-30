@@ -42,7 +42,7 @@ const ModalServiceProvider = {
 };
 
 export default {
-  title: 'AddToCart',
+  title: 'Cart/AddToCart',
   decorators: [setupSpartacus([AddToCartModule], [ActiveCartServiceProvider])],
 };
 
