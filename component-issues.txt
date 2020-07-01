@@ -1,2 +1,9 @@
 ASM Main UI: https://github.com/SAP/spartacus/blob/39c5fce0e42785de256306a869416dab459bdb74/projects/storefrontlib/src/cms-components/index.ts#L2
 AddToHomeScreen: https://github.com/SAP/spartacus/issues/8079
+
+
+# chromatic issues:
+skiplinks
+modal
+hamburger menu
+anonymous consent link
