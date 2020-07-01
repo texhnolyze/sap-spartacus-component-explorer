@@ -34,13 +34,6 @@ const ActiveCartServiceProvider = {
   },
 };
 
-const ModalServiceProvider = {
-  provide: ModalService,
-  useClass: class ModalServiceMock {
-    open = () => ({ componentInstance: {} });
-  },
-};
-
 export default {
   title: 'Cart/AddToCart',
   decorators: [setupSpartacus([AddToCartModule], [ActiveCartServiceProvider])],
