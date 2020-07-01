@@ -9,14 +9,14 @@
     "test": "ng test",
     "lint": "prettier --check src/**/*",
     "e2e": "ng e2e",
-    "prerender": "ng run sap-spartacus-component-explorer:prerender",
-    "occ-mock": "json-server occ-mock-server/db.json -r occ-mock-server/routes.json -p 3000",
-    "storybook": "set STORYBOOK_OCC_BASEURL=http://localhost:3000&& start-storybook -p 6006",
-    "build-storybook": "set STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com&& build-storybook",
-    "test-chromatic": "set STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com&& chromatic --project-token=ce7bsz2tow8 --exit-zero-on-changes",
     "dev:ssr": "ng run sap-spartacus-component-explorer:serve-ssr",
     "serve:ssr": "node dist/sap-spartacus-component-explorer/server/main.js",
-    "build:ssr": "ng build --prod && ng run sap-spartacus-component-explorer:server:production"
+    "build:ssr": "ng build --prod && ng run sap-spartacus-component-explorer:server:production",
+    "prerender": "ng run sap-spartacus-component-explorer:prerender",
+    "occ-mock": "json-server occ-mock-server/db.json -r occ-mock-server/routes.json -p 3000",
+    "storybook": "cross-env STORYBOOK_OCC_BASEURL=http://localhost:3000 start-storybook -p 6006",
+    "build-storybook": "cross-env STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com build-storybook",
+    "test-chromatic": "cross-env STORYBOOK_OCC_BASEURL=https://api.c39j2-walkersde1-d3-public.model-t.cc.commerce.ondemand.com chromatic --project-token=ce7bsz2tow8 --exit-zero-on-changes"
   },
   "private": true,
   "dependencies": {
@@ -74,6 +74,7 @@
     "babel-loader": "^8.1.0",
     "chromatic": "^4.0.3",
     "codelyzer": "^5.1.2",
+    "cross-env": "^7.0.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "json-server": "^0.16.1",
