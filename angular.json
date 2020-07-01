@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "spartacus-demo-setup": {
+    "sap-spartacus-component-explorer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/spartacus-demo-setup/browser",
+            "outputPath": "dist/sap-spartacus-component-explorer/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "spartacus-demo-setup:build"
+            "browserTarget": "sap-spartacus-component-explorer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "spartacus-demo-setup:build:production"
+              "browserTarget": "sap-spartacus-component-explorer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "spartacus-demo-setup:build"
+            "browserTarget": "sap-spartacus-component-explorer:build"
           }
         },
         "test": {
@@ -118,18 +118,31 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "spartacus-demo-setup:serve"
+            "devServerTarget": "sap-spartacus-component-explorer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "spartacus-demo-setup:serve:production"
+              "devServerTarget": "sap-spartacus-component-explorer:serve:production"
             }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "sap-spartacus-component-explorer:build:production",
+            "serverTarget": "sap-spartacus-component-explorer:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/spartacus-demo-setup/server",
+            "outputPath": "dist/sap-spartacus-component-explorer/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
@@ -150,30 +163,17 @@
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "browserTarget": "spartacus-demo-setup:build",
-            "serverTarget": "spartacus-demo-setup:server"
+            "browserTarget": "sap-spartacus-component-explorer:build",
+            "serverTarget": "sap-spartacus-component-explorer:server"
           },
           "configurations": {
             "production": {
-              "browserTarget": "spartacus-demo-setup:build:production",
-              "serverTarget": "spartacus-demo-setup:server:production"
+              "browserTarget": "sap-spartacus-component-explorer:build:production",
+              "serverTarget": "sap-spartacus-component-explorer:server:production"
             }
-          }
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "browserTarget": "spartacus-demo-setup:build:production",
-            "serverTarget": "spartacus-demo-setup:server:production",
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {}
           }
         }
       }
     }},
-  "defaultProject": "spartacus-demo-setup"
+  "defaultProject": "sap-spartacus-component-explorer"
 }

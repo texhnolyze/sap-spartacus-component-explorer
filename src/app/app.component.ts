@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'spartacus-demo-setup';
+  title = 'sap-spartacus-component-explorer';
 }

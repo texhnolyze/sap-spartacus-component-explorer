@@ -1728,10 +1728,10 @@
   resolved "https://registry.yarnpkg.com/@spartacus/core/-/core-2.0.2.tgz#3141a8f542795b269038ab01e48bd67bc69d5226"
   integrity sha512-/C0EAduefa9l+eME4q0fznR7RnE1ROf8/JQP+D/XbqraYUhLp9bn3PFY8d+OzbGM4XjXLQbI9eC84PaMjVOwyg==
 
-"@spartacus/schematics@2.0.0-rc.4":
-  version "2.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@spartacus/schematics/-/schematics-2.0.0-rc.4.tgz#ce1a7970097b4f21edd2a0529257c586c50590d5"
-  integrity sha512-+wK8tMGYjI500CnO9/uSDSftkgUDarwYslViIpmnaJ/5imvcWnXJg1j079x9N0OUsVzhlvppN0wivBPyGNeCcQ==
+"@spartacus/schematics@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@spartacus/schematics/-/schematics-2.0.2.tgz#e748286a74e05bef3e02aa7e9b6d9209c61df6c5"
+  integrity sha512-4O2/RFURoaAGzy6ar7uDinXqZLOapioz42GoWCG08tc7f+JFzpRqG1Cuzn5C3x7dnKgnaT9mPCmoXsxVyNLtMw==
   dependencies:
     "@angular-devkit/core" "^9.1.0"
     "@angular-devkit/schematics" "^9.1.0"
