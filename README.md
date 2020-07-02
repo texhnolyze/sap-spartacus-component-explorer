@@ -1,9 +1,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e060e334-0ee5-404c-9d20-c51ffa93a041/deploy-status)](https://app.netlify.com/sites/friendly-darwin-75acce/deploys)
 
-[![<ORG_NAME>](https://circleci.com/gh/janrode/sap-spartacus-component-explorer.svg?style=shield
-)](https://circleci.com/gh/janrode/sap-spartacus-component-explorer)
+[![<ORG_NAME>](https://circleci.com/gh/janrode/sap-spartacus-component-explorer.svg?style=shield)](https://circleci.com/gh/janrode/sap-spartacus-component-explorer)
 
 # Spartacus Component Explorer
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
 ## Development server
