@@ -12,6 +12,7 @@ const activeCart = of({
   deliveryItemsQuantity: 14,
   subTotal: { formattedValue: '140 €' },
 });
+
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
   useClass: class ActiveCartServiceMock {
