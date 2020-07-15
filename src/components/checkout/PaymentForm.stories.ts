@@ -14,6 +14,9 @@ let loading;
 const CheckoutDeliveryServiceProvider = {
   provide: CheckoutDeliveryService,
   useClass: class CheckoutDeliveryServiceMock {
+    getAddressVerificationResults() {
+      return of({ decision: 'ACCEPT ' });
+    }
     getDeliveryAddress() {
       return of({
         firstName: 'Jensen',
