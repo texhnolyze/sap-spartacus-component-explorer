@@ -5,7 +5,6 @@ import {
 } from '@spartacus/storefront';
 import { ActiveCartService } from '@spartacus/core';
 import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
 
 const cartEntries = [
   {
