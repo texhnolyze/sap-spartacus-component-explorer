@@ -1,25 +1,34 @@
+import { IStory } from '@storybook/angular';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import {
-  PaymentMethodComponent,
-  PaymentMethodModule,
-} from '@spartacus/storefront';
-import {
+  Cart,
+  Address,
+  Country,
+  CardType,
+  PaymentDetails,
+  AddressValidation,
   ActiveCartService,
   CheckoutDeliveryService,
   CheckoutPaymentService,
   UserPaymentService,
 } from '@spartacus/core';
-import { of } from 'rxjs';
+import {
+  PaymentMethodComponent,
+  PaymentMethodModule,
+} from '@spartacus/storefront';
 
-let loading;
+let loading: boolean;
+
 const CheckoutDeliveryServiceProvider = {
   provide: CheckoutDeliveryService,
-  useClass: class CheckoutDeliveryServiceMock {
-    getAddressVerificationResults() {
-      return of({ decision: 'ACCEPT ' });
-    }
-    getDeliveryAddress() {
-      return of({
+  useClass: class CheckoutDeliveryServiceMock
+    implements Partial<CheckoutDeliveryService> {
+    getAddressVerificationResults = (): Observable<
+      AddressValidation | string
+    > => of({ decision: 'ACCEPT' });
+    getDeliveryAddress = (): Observable<Address> =>
+      of({
         firstName: 'Jensen',
         lastName: 'Osinski',
         line1: '9865 Hal Road',
@@ -27,15 +36,16 @@ const CheckoutDeliveryServiceProvider = {
         postalCode: 'MT 24603',
         country: { isocode: 'USA' },
       });
-    }
   },
 };
+
 const UserPaymentServiceProvider = {
   provide: UserPaymentService,
-  useClass: class UserPaymentServiceMock {
-    getPaymentMethodsLoading = () => of(loading);
-    loadPaymentMethods = () => {};
-    getPaymentMethods = () =>
+  useClass: class UserPaymentServiceMock
+    implements Partial<UserPaymentService> {
+    getPaymentMethodsLoading = (): Observable<boolean> => of(loading);
+    loadPaymentMethods = (): void => {};
+    getPaymentMethods = (): Observable<PaymentDetails[]> =>
       of([
         {
           id: '1',
@@ -56,17 +66,19 @@ const UserPaymentServiceProvider = {
           expiryYear: '2020',
         },
       ]);
-    getAllBillingCountries() {
-      return of([{ isocode: 'de' }, { isocode: 'USA' }]);
-    }
+    getAllBillingCountries = (): Observable<Country[]> =>
+      of([{ isocode: 'de' }, { isocode: 'USA' }]);
   },
 };
+
 const CheckoutPaymentServiceProvider = {
   provide: CheckoutPaymentService,
-  useClass: class CheckoutPaymentServiceMock {
-    getSetPaymentDetailsResultProcess = () => of({ loading });
-    paymentProcessSuccess = () => {};
-    getCardTypes = () =>
+  useClass: class CheckoutPaymentServiceMock
+    implements Partial<CheckoutPaymentService> {
+    getSetPaymentDetailsResultProcess = (): Observable<unknown> =>
+      of({ loading });
+    paymentProcessSuccess = (): void => {};
+    getCardTypes = (): Observable<CardType[]> =>
       of([
         {
           code: 'visa',
@@ -85,18 +97,18 @@ const CheckoutPaymentServiceProvider = {
           name: 'Mastercard',
         },
       ]);
-    getPaymentDetails = () => of({ id: '1' });
-    setPaymentDetails = () => {};
-    loadSupportedCardTypes = () => of([]);
+    getPaymentDetails = (): Observable<PaymentDetails> => of({ id: '1' });
+    setPaymentDetails = (): void => {};
+    loadSupportedCardTypes = (): void => {};
   },
 };
 
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'ActiveCartId';
-    getActive = () => of({});
-    isGuestCart = () => false;
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    getActiveCartId = (): Observable<string> => of('ActiveCartId');
+    getActive = (): Observable<Cart> => of({});
+    isGuestCart = (): boolean => false;
   },
 };
 
@@ -115,14 +127,14 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   loading = false;
   return {
     component: PaymentMethodComponent,
   };
 };
 
-export const Loading = () => {
+export const Loading = (): IStory => {
   loading = true;
   return {
     component: PaymentMethodComponent,

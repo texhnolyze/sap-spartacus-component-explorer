@@ -1,12 +1,13 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { Cart, PromotionResult, ActiveCartService } from '@spartacus/core';
 import {
   AddedToCartDialogComponent,
   AddToCartModule,
   PromotionService,
 } from '@spartacus/storefront';
-import { ActiveCartService } from '@spartacus/core';
-import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
 
 const activeCart = of({
   deliveryItemsQuantity: 14,
@@ -15,17 +16,17 @@ const activeCart = of({
 
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'id';
-    getActive = () => activeCart;
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
     updateEntry = action('ActiveCartService:updateEntry');
+    getActiveCartId = (): Observable<string> => of('id');
+    getActive = (): Observable<Cart> => activeCart;
   },
 };
 
 const PromotionServiceProvider = {
   provide: PromotionService,
-  useClass: class PromotionServiceMock {
-    getOrderPromotions = () =>
+  useClass: class PromotionServiceMock implements Partial<PromotionService> {
+    getOrderPromotions = (): Observable<PromotionResult[]> =>
       of([
         { description: 'Buy over $100.00 get free shipping' },
         { description: 'Buy over $200.00 get $20.00 discount on cart' },
@@ -35,7 +36,12 @@ const PromotionServiceProvider = {
 
 export default {
   title: 'Cart/AddedToCartDialog',
-  decorators: [setupSpartacus([AddToCartModule], [ActiveCartServiceProvider])],
+  decorators: [
+    setupSpartacus(
+      [AddToCartModule],
+      [ActiveCartServiceProvider, PromotionServiceProvider]
+    ),
+  ],
 };
 
 const defaultEntry = {
@@ -62,7 +68,7 @@ const defaultEntry = {
     },
   },
 };
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: AddedToCartDialogComponent,
   props: {
     quantity: 4,
@@ -72,7 +78,7 @@ export const Default = () => ({
   },
 });
 
-export const IncrementQuantity = () => ({
+export const IncrementQuantity = (): IStory => ({
   component: AddedToCartDialogComponent,
   props: {
     increment: 44,
@@ -82,7 +88,7 @@ export const IncrementQuantity = () => ({
   },
 });
 
-export const Loading = () => ({
+export const Loading = (): IStory => ({
   component: AddedToCartDialogComponent,
   props: {
     loaded$: of(false),

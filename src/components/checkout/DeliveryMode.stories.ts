@@ -1,13 +1,14 @@
+import { IStory } from '@storybook/angular';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { DeliveryMode, CheckoutDeliveryService } from '@spartacus/core';
 import {
   DeliveryModeComponent,
   DeliveryModeModule,
 } from '@spartacus/storefront';
-import { CheckoutDeliveryService } from '@spartacus/core';
-import { of } from 'rxjs';
 
-let deliveryModes;
-const supportedDeliveryModes = [
+let deliveryModes: DeliveryMode[];
+const supportedDeliveryModes: DeliveryMode[] = [
   {
     code: '1',
     name: 'Standard Delivery',
@@ -36,13 +37,12 @@ const supportedDeliveryModes = [
 
 const CheckoutDeliveryServiceProvider = {
   provide: CheckoutDeliveryService,
-  useClass: class CheckoutDeliveryServiceMock {
-    getSupportedDeliveryModes() {
-      return of(deliveryModes);
-    }
-    getSelectedDeliveryMode() {
-      return of(supportedDeliveryModes[1]);
-    }
+  useClass: class CheckoutDeliveryServiceMock
+    implements Partial<CheckoutDeliveryService> {
+    getSupportedDeliveryModes = (): Observable<DeliveryMode[]> =>
+      of(deliveryModes);
+    getSelectedDeliveryMode = (): Observable<DeliveryMode> =>
+      of(supportedDeliveryModes[1]);
   },
 };
 
@@ -53,14 +53,14 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   deliveryModes = supportedDeliveryModes;
   return {
     component: DeliveryModeComponent,
   };
 };
 
-export const Loading = () => {
+export const Loading = (): IStory => {
   deliveryModes = [];
   return {
     component: DeliveryModeComponent,

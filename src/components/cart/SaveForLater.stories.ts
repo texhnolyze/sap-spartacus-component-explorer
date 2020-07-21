@@ -1,18 +1,22 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import {
+  Cart,
+  Page,
+  OrderEntry,
+  CmsService,
+  ActiveCartService,
+  SelectiveCartService,
+} from '@spartacus/core';
 import {
   SaveForLaterComponent,
   SaveForLaterModule,
 } from '@spartacus/storefront';
-import {
-  ActiveCartService,
-  CmsService,
-  SelectiveCartService,
-} from '@spartacus/core';
-import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
 
-let cartEntries;
-const defaultEntries = [
+let cartEntries: OrderEntry[];
+const defaultEntries: OrderEntry[] = [
   {
     entryNumber: 0,
     quantity: 2,
@@ -27,7 +31,9 @@ const defaultEntries = [
       code: 'product-code-8525-86754-24356',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Handcrafted Metal Soap',
@@ -50,10 +56,11 @@ const defaultEntries = [
     },
     product: {
       code: '1992-693-7557-007',
-      configurable: true,
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Refined Wooden Computer',
@@ -78,7 +85,9 @@ const defaultEntries = [
       code: '8653-80123-74124',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Incredible Soft Sausages',
@@ -90,42 +99,46 @@ const defaultEntries = [
     },
   },
 ];
+
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'ActiveCartId';
-    getActive = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    addEntry = action('ActiveCartService:addEntry');
+    removeEntry = action('ActiveCartService:removeEntry');
+    getActiveCartId = (): Observable<string> => of('ActiveCartId');
+    getActive = (): Observable<Cart> =>
       of({
         totalItems: 0,
         code: '0000179210',
       });
-    isStable = () => of(true);
-    addEntry = action('ActiveCartService:addEntry');
-    removeEntry = action('ActiveCartService:removeEntry');
+    isStable = (): Observable<boolean> => of(true);
   },
 };
 
 const SelectiveCartServiceProvider = {
   provide: SelectiveCartService,
-  useClass: class SelectiveCartServiceMock {
-    getCart = () =>
+  useClass: class SelectiveCartServiceMock
+    implements Partial<SelectiveCartService> {
+    removeEntry = action('SelectiveCartServiceProvider:removeEntry');
+    getCart = (): Observable<Cart> =>
       of({
         totalItems: 3,
         code: '0000179210',
       });
-    getEntries = () => of(cartEntries);
-    isEnabled = () => true;
-    getLoaded = () => of(true);
-    removeEntry = action('SelectiveCartServiceProvider:removeEntry');
+    getEntries = (): Observable<OrderEntry[]> => of(cartEntries);
+    isEnabled = (): boolean => true;
+    getLoaded = (): Observable<boolean> => of(true);
   },
 };
 
 const CmsServiceProvider = {
   provide: CmsService,
-  useClass: class CmsServiceProviderMock {
-    getComponentData = () =>
-      of({ content: '<p>Empty Cart Info (EmptyCartParagraphComponent)</p>' });
-    getCurrentPage = () => of({});
+  useClass: class CmsServiceMock implements Partial<CmsService> {
+    getComponentData = <T extends CmsComponent>(): Observable<T> =>
+      of({
+        content: '<p>Empty Cart Info (EmptyCartParagraphComponent)</p>',
+      });
+    getCurrentPage = (): Observable<Page> => of({});
   },
 };
 
@@ -143,7 +156,7 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   cartEntries = defaultEntries;
   return {
     component: SaveForLaterComponent,

@@ -1,3 +1,4 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import {
   CheckoutOrchestratorComponent,
@@ -9,6 +10,6 @@ export default {
   decorators: [setupSpartacus([CheckoutOrchestratorModule])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CheckoutOrchestratorComponent,
 });

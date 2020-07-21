@@ -1,3 +1,4 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import {
   AddressFormModule,
@@ -9,7 +10,7 @@ export default {
   decorators: [setupSpartacus([AddressFormModule])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: SuggestedAddressDialogComponent,
   props: {
     suggestedAddresses: [

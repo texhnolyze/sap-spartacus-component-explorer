@@ -1,9 +1,10 @@
+import { IStory } from '@storybook/angular';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import {
   FooterNavigationComponent,
   FooterNavigationModule,
   PageLayoutModule,
 } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { NavigationServiceProvider } from './NavigationServiceProvider';
 import { CmsComponentProvider } from './CmsComponentProvider';
 
@@ -18,7 +19,7 @@ export default {
   component: FooterNavigationComponent,
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: FooterNavigationComponent,
   template: `
     <cx-page-layout section="footer" class="footer">

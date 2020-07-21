@@ -1,36 +1,38 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { Cart, Product, AuthService, WishListService } from '@spartacus/core';
 import {
   AddToWishListComponent,
   AddToWishListModule,
   CurrentProductService,
 } from '@spartacus/storefront';
-import { AuthService, WishListService } from '@spartacus/core';
-import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
 
-let isUserLoggedIn;
-let wishlistLoading;
-let productAlreadyInWishlist;
+let isUserLoggedIn: Observable<boolean>;
+let wishlistLoading: Observable<boolean>;
+let productAlreadyInWishlist: boolean;
 
 const WishListServiceProvider = {
   provide: WishListService,
-  useClass: class WishListServiceMock {
-    getWishList = () =>
+  useClass: class WishListServiceMock implements Partial<WishListService> {
+    addEntry = action('addEntry');
+    removeEntry = action('removeEntry');
+    getWishList = (): Observable<Cart> =>
       of({
         entries: [
           { product: { code: productAlreadyInWishlist ? '123' : '456' } },
         ],
       });
-    getWishListLoading = () => wishlistLoading;
-    removeEntry = action('removeEntry');
-    addEntry = action('addEntry');
+    getWishListLoading = (): Observable<boolean> => wishlistLoading;
   },
 };
 
 const CurrentProductServiceProvider = {
   provide: CurrentProductService,
-  useClass: class CurrentProductServiceMock {
-    getProduct = () =>
+  useClass: class CurrentProductServiceMock
+    implements Partial<CurrentProductService> {
+    getProduct = (): Observable<Product | null> =>
       of({
         code: '123',
         stock: {
@@ -43,9 +45,9 @@ const CurrentProductServiceProvider = {
 
 const AuthServiceProvider = {
   provide: AuthService,
-  useClass: class AuthServiceMock {
-    getOccUserId = () => of('id');
-    isUserLoggedIn = () => isUserLoggedIn;
+  useClass: class AuthServiceMock implements Partial<AuthService> {
+    getOccUserId = (): Observable<string> => of('id');
+    isUserLoggedIn = (): Observable<boolean> => isUserLoggedIn;
   },
 };
 
@@ -63,7 +65,7 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   wishlistLoading = of(false);
   isUserLoggedIn = of(true);
   productAlreadyInWishlist = false;
@@ -71,7 +73,7 @@ export const Default = () => {
   return { component: AddToWishListComponent };
 };
 
-export const AlreadyInWishlist = () => {
+export const AlreadyInWishlist = (): IStory => {
   wishlistLoading = of(false);
   isUserLoggedIn = of(true);
   productAlreadyInWishlist = true;
@@ -79,7 +81,7 @@ export const AlreadyInWishlist = () => {
   return { component: AddToWishListComponent };
 };
 
-export const WishlistLoading = () => {
+export const WishlistLoading = (): IStory => {
   wishlistLoading = of(true);
   isUserLoggedIn = of(true);
   productAlreadyInWishlist = false;
@@ -87,7 +89,7 @@ export const WishlistLoading = () => {
   return { component: AddToWishListComponent };
 };
 
-export const UserNotLoggedIn = () => {
+export const UserNotLoggedIn = (): IStory => {
   wishlistLoading = of(false);
   isUserLoggedIn = of(false);
   productAlreadyInWishlist = false;

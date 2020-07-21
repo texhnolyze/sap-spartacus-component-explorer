@@ -1,11 +1,16 @@
-import { B2cStorefrontModule } from '@spartacus/storefront';
-import { APP_BASE_HREF } from '@angular/common';
-import { moduleMetadata } from '@storybook/angular';
+import { Provider } from '@angular/core';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { B2cStorefrontModule } from '@spartacus/storefront';
 import { translationChunksConfig, translations } from '@spartacus/assets';
+import { IStory, moduleMetadata } from '@storybook/angular';
+import { StoryFn } from '@storybook/addons';
 
-export const setupSpartacus = (modules, providers = []) =>
-  moduleMetadata({
+export function setupSpartacus(
+  modules: CommonModule[],
+  providers: Provider[] = []
+): (storyFn: StoryFn<IStory>) => unknown {
+  return moduleMetadata({
     imports: [
       RouterModule.forRoot([], {
         initialNavigation: 'disabled',
@@ -40,3 +45,4 @@ export const setupSpartacus = (modules, providers = []) =>
       ...providers,
     ],
   });
+}

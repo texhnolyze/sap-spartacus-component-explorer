@@ -1,3 +1,4 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import {
   HamburgerMenuComponent,
@@ -14,6 +15,6 @@ export default {
   },
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: HamburgerMenuComponent,
 });

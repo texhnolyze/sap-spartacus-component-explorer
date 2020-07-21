@@ -1,3 +1,4 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import { PlaceOrderComponent, PlaceOrderModule } from '@spartacus/storefront';
 
@@ -6,6 +7,6 @@ export default {
   decorators: [setupSpartacus([PlaceOrderModule])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: PlaceOrderComponent,
 });

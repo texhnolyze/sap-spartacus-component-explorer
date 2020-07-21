@@ -1,7 +1,8 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { object, select, text } from '@storybook/addon-knobs';
 import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { MediaComponent, MediaModule } from '@spartacus/storefront';
-import { object, select, text } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Base/Media',
@@ -23,7 +24,7 @@ const mediaContainer = {
   },
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: MediaComponent,
   props: {
     alt: text('alt', 'alt text'),

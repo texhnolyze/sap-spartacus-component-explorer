@@ -1,13 +1,14 @@
+import { IStory } from '@storybook/angular';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { Cart, ActiveCartService, OrderEntry } from '@spartacus/core';
 import { CartTotalsComponent, CartTotalsModule } from '@spartacus/storefront';
-import { ActiveCartService } from '@spartacus/core';
-import { of } from 'rxjs';
 
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'ActiveCartId';
-    getActive = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    getActiveCartId = (): Observable<string> => of('ActiveCartId');
+    getActive = (): Observable<Cart> =>
       of({
         subTotal: {
           formattedValue: '524,53€',
@@ -27,7 +28,7 @@ const ActiveCartServiceProvider = {
         },
         net: true,
       });
-    getEntries = () =>
+    getEntries = (): Observable<OrderEntry[]> =>
       of([
         {
           entryNumber: 0,
@@ -41,6 +42,6 @@ export default {
   decorators: [setupSpartacus([CartTotalsModule], [ActiveCartServiceProvider])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CartTotalsComponent,
 });

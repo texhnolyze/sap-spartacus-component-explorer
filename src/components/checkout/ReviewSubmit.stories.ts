@@ -1,18 +1,26 @@
+import { IStory } from '@storybook/angular';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import {
-  PromotionService,
-  ReviewSubmitComponent,
-  ReviewSubmitModule,
-} from '@spartacus/storefront';
-import {
+  Cart,
+  Address,
+  Country,
+  OrderEntry,
+  DeliveryMode,
+  PaymentDetails,
+  PromotionResult,
   ActiveCartService,
   CheckoutDeliveryService,
   CheckoutPaymentService,
   UserAddressService,
 } from '@spartacus/core';
-import { of } from 'rxjs';
+import {
+  PromotionService,
+  ReviewSubmitComponent,
+  ReviewSubmitModule,
+} from '@spartacus/storefront';
 
-let cartEntries = [
+const cartEntries: OrderEntry[] = [
   {
     entryNumber: 0,
     quantity: 2,
@@ -27,7 +35,9 @@ let cartEntries = [
       code: 'product-code-8525-86754-24356',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Handcrafted Metal Soap',
@@ -49,10 +59,11 @@ let cartEntries = [
     },
     product: {
       code: '1992-693-7557-007',
-      configurable: false,
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Refined Wooden Computer',
@@ -73,7 +84,9 @@ let cartEntries = [
       code: '8653-80123-74124',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Incredible Soft Sausages',
@@ -88,8 +101,9 @@ let cartEntries = [
 
 const CheckoutDeliveryServiceProvider = {
   provide: CheckoutDeliveryService,
-  useClass: class CheckoutDeliveryServiceMock {
-    getDeliveryAddress = () =>
+  useClass: class CheckoutDeliveryServiceMock
+    implements Partial<CheckoutDeliveryService> {
+    getDeliveryAddress = (): Observable<Address> =>
       of({
         firstName: 'Jensen',
         lastName: 'Osinski',
@@ -98,7 +112,7 @@ const CheckoutDeliveryServiceProvider = {
         postalCode: 'MT 24603',
         country: { isocode: 'USA' },
       });
-    getSelectedDeliveryMode = () =>
+    getSelectedDeliveryMode = (): Observable<DeliveryMode> =>
       of({
         code: '2',
         name: 'Premium Delivery',
@@ -107,14 +121,15 @@ const CheckoutDeliveryServiceProvider = {
         },
         description: '1-2 business days',
       });
-    loadSupportedDeliveryModes = () => of([]);
+    loadSupportedDeliveryModes = (): void => {};
   },
 };
 
 const CheckoutPaymentServiceProvider = {
   provide: CheckoutPaymentService,
-  useClass: class CheckoutPaymentServiceMock {
-    getPaymentDetails = () =>
+  useClass: class CheckoutPaymentServiceMock
+    implements Partial<CheckoutPaymentService> {
+    getPaymentDetails = (): Observable<PaymentDetails> =>
       of({
         id: '1',
         defaultPayment: true,
@@ -129,17 +144,19 @@ const CheckoutPaymentServiceProvider = {
 
 const UserAddressServiceProvider = {
   provide: UserAddressService,
-  useClass: class UserAddressServiceMock {
-    getCountry = () => of('Germany');
-    loadDeliveryCountries = () => [];
+  useClass: class UserAddressServiceMock
+    implements Partial<UserAddressService> {
+    getCountry = (): Observable<Country> =>
+      of({ isocode: 'DE', name: 'Germany' });
+    loadDeliveryCountries = (): void => {};
   },
 };
 
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'ActiveCartId';
-    getActive = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    getActiveCartId = (): Observable<string> => of('ActiveCartId');
+    getActive = (): Observable<Cart> =>
       of({
         totalItems: 4,
         code: '0000179210',
@@ -161,16 +178,16 @@ const ActiveCartServiceProvider = {
         },
         net: true,
       });
-    getEntries = () => of(cartEntries);
+    getEntries = (): Observable<OrderEntry[]> => of(cartEntries);
   },
 };
 
 const PromotionServiceProvider = {
   provide: PromotionService,
-  useClass: class PromotionServiceMock {
-    getProductPromotionForEntry = () =>
+  useClass: class PromotionServiceMock implements Partial<PromotionService> {
+    getProductPromotionForEntry = (): Observable<PromotionResult[]> =>
       of([{ description: '10% off, summer sale' }]);
-    getOrderPromotions = () =>
+    getOrderPromotions = (): Observable<PromotionResult[]> =>
       of([
         { description: 'Buy over $100.00 get free shipping' },
         { description: 'Buy over $200.00 get $20.00 discount on cart' },
@@ -194,6 +211,6 @@ export default {
   ],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: ReviewSubmitComponent,
 });

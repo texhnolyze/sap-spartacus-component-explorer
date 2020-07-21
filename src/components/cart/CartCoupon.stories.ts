@@ -1,14 +1,18 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
-import { CartCouponComponent, CartCouponModule } from '@spartacus/storefront';
 import {
+  Cart,
+  Voucher,
+  CustomerCouponSearchResult,
   ActiveCartService,
   CartVoucherService,
   CustomerCouponService,
 } from '@spartacus/core';
-import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
+import { CartCouponComponent, CartCouponModule } from '@spartacus/storefront';
 
-let customerCoupons;
+let customerCoupons: CustomerCouponSearchResult;
 const defaultCustomerCoupons = {
   coupons: [
     {
@@ -23,13 +27,15 @@ const defaultCustomerCoupons = {
 };
 const CustomerCouponServiceProvider = {
   provide: CustomerCouponService,
-  useClass: class CustomerCouponServiceMock {
-    loadCustomerCoupons() {}
-    getCustomerCoupons = () => of(customerCoupons);
+  useClass: class CustomerCouponServiceMock
+    implements Partial<CustomerCouponService> {
+    loadCustomerCoupons = (): void => {};
+    getCustomerCoupons = (): Observable<CustomerCouponSearchResult> =>
+      of(customerCoupons);
   },
 };
 
-let appliedVouchers;
+let appliedVouchers: Voucher[];
 const defaultAppliedVouchers1 = [
   { code: '1', voucherCode: '3%WinterSale' },
   { code: '2', voucherCode: '25%SummerSale' },
@@ -37,24 +43,25 @@ const defaultAppliedVouchers1 = [
 ];
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'id';
-    getActive = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    getActiveCartId = (): Observable<string> => of('id');
+    getActive = (): Observable<Cart> =>
       of({
         appliedVouchers,
       });
-    isStable = () => of(true);
+    isStable = (): Observable<boolean> => of(true);
   },
 };
 
 const CartVoucherServiceProvider = {
   provide: CartVoucherService,
-  useClass: class CartVoucherServiceMock {
-    resetAddVoucherProcessingState() {}
-    getAddVoucherResultSuccess = () => of(true);
-    getAddVoucherResultError = () => of(false);
+  useClass: class CartVoucherServiceMock
+    implements Partial<CartVoucherService> {
     addVoucher = action('addVoucher');
     removeVoucher = action('removeVoucher');
+    resetAddVoucherProcessingState = (): void => {};
+    getAddVoucherResultSuccess = (): Observable<boolean> => of(true);
+    getAddVoucherResultError = (): Observable<boolean> => of(false);
   },
 };
 
@@ -72,7 +79,7 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   appliedVouchers = defaultAppliedVouchers1;
   customerCoupons = defaultCustomerCoupons;
   return {
@@ -80,7 +87,7 @@ export const Default = () => {
   };
 };
 
-export const NoAppliedVouchers = () => {
+export const NoAppliedVouchers = (): IStory => {
   appliedVouchers = [];
   customerCoupons = defaultCustomerCoupons;
   return {
@@ -88,17 +95,17 @@ export const NoAppliedVouchers = () => {
   };
 };
 
-export const NoAvailableCoupons = () => {
+export const NoAvailableCoupons = (): IStory => {
   appliedVouchers = defaultAppliedVouchers1;
-  customerCoupons = [];
+  customerCoupons = { coupons: [] };
   return {
     component: CartCouponComponent,
   };
 };
 
-export const Empty = () => {
+export const Empty = (): IStory => {
   appliedVouchers = [];
-  customerCoupons = [];
+  customerCoupons = { coupons: [] };
   return {
     component: CartCouponComponent,
   };

@@ -1,8 +1,9 @@
+import { IStory } from '@storybook/angular';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import {
   AnonymousConsentDialogComponent,
   AnonymousConsentsDialogModule,
 } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import { AnonymousConsentsServiceProvider } from '../AnonymousConsentsServiceProvider';
 import {
   anonymousConsentsConfig,
@@ -25,14 +26,14 @@ export default {
   component: AnonymousConsentDialogComponent,
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   anonymousConsentsConfig.showLegalDescriptionInDialog = true;
   return {
     component: AnonymousConsentDialogComponent,
   };
 };
 
-export const NoLegalDescription = () => {
+export const NoLegalDescription = (): IStory => {
   anonymousConsentsConfig.showLegalDescriptionInDialog = false;
   return {
     component: AnonymousConsentDialogComponent,
