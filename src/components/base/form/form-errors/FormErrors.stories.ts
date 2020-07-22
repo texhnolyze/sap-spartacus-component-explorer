@@ -1,7 +1,7 @@
+import { IStory } from '@storybook/angular';
+import { FormControl } from '@angular/forms';
 import { FormErrorsComponent, FormErrorsModule } from '@spartacus/storefront';
 import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
-import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
-import { FormControl } from '@angular/forms';
 
 const control = new FormControl('exampleControl');
 control.markAsDirty();
@@ -22,7 +22,7 @@ export default {
   component: FormErrorsComponent,
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: FormErrorsComponent,
   props: {
     control,

@@ -1,4 +1,6 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { Cart } from '@spartacus/core';
 import { CartSharedModule, OrderSummaryComponent } from '@spartacus/storefront';
 
 export default {
@@ -6,7 +8,7 @@ export default {
   decorators: [setupSpartacus([CartSharedModule])],
 };
 
-let cart = {
+const cart: Cart = {
   subTotal: {
     formattedValue: '524,53€',
   },
@@ -26,7 +28,7 @@ let cart = {
   net: true,
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   cart.deliveryCost.formattedValue = '100 €';
   return {
     component: OrderSummaryComponent,
@@ -36,7 +38,7 @@ export const Default = () => {
   };
 };
 
-export const UnknownDeliveryCost = () => {
+export const UnknownDeliveryCost = (): IStory => {
   cart.deliveryCost.formattedValue = null;
   return {
     component: OrderSummaryComponent,

@@ -1,6 +1,7 @@
+import { IStory } from '@storybook/angular';
+import { boolean, object } from '@storybook/addon-knobs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import { AppliedCouponsComponent } from '@spartacus/storefront';
-import { boolean, object } from '@storybook/addon-knobs';
 
 export default {
   title: 'Cart/AppliedCoupons',
@@ -19,7 +20,7 @@ const defaultVouchers = [
     voucherCode: 'voucherCode2',
   },
 ];
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: AppliedCouponsComponent,
   props: {
     vouchers: object('vouchers', defaultVouchers),
@@ -28,7 +29,7 @@ export const Default = () => ({
   },
 });
 
-export const ReadOnly = () => ({
+export const ReadOnly = (): IStory => ({
   component: AppliedCouponsComponent,
   props: {
     vouchers: object('vouchers', defaultVouchers),
@@ -37,7 +38,7 @@ export const ReadOnly = () => ({
   },
 });
 
-export const CartLoading = () => ({
+export const CartLoading = (): IStory => ({
   component: AppliedCouponsComponent,
   props: {
     cartIsLoading: boolean('cartIsLoading', true),

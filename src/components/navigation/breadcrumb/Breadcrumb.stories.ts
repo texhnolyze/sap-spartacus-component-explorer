@@ -1,5 +1,6 @@
-import { BreadcrumbComponent, BreadcrumbModule } from '@spartacus/storefront';
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { BreadcrumbComponent, BreadcrumbModule } from '@spartacus/storefront';
 import { PageMetaServiceProvider } from './PageMetaServiceProvider';
 import { CmsComponentProvider } from './CmsComponentProvider';
 
@@ -14,6 +15,6 @@ export default {
   component: BreadcrumbComponent,
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: BreadcrumbComponent,
 });

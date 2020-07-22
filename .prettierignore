@@ -1,0 +1,5 @@
+dist
+coverage
+occ-mock-server
+src/assets/icons
+src/index.html

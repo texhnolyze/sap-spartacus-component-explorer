@@ -1,9 +1,9 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
 import {
   AddToHomeScreenBannerComponent,
   PwaModule,
 } from '@spartacus/storefront';
-import { of } from 'rxjs';
 /*
 import { AddToHomeScreenService } from '@spartacus/storefront';
 
@@ -19,6 +19,6 @@ export default {
   decorators: [setupSpartacus([PwaModule], [])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: AddToHomeScreenBannerComponent,
 });

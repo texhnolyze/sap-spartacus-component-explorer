@@ -1,11 +1,11 @@
-import { PageMetaService } from '@spartacus/core';
-import { of } from 'rxjs';
 import { text } from '@storybook/addon-knobs';
+import { Observable, of } from 'rxjs';
+import { PageMeta, PageMetaService } from '@spartacus/core';
 
 export const PageMetaServiceProvider = {
   provide: PageMetaService,
   useClass: class PageMetaServiceMock {
-    getMeta() {
+    getMeta(): Observable<PageMeta> {
       return of({
         breadcrumbs: [
           { label: 'Home', link: '/1' },

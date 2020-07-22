@@ -1,3 +1,4 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 import {
   AnonymousConsentManagementBannerComponent,
@@ -16,6 +17,6 @@ export default {
   ],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: AnonymousConsentManagementBannerComponent,
 });

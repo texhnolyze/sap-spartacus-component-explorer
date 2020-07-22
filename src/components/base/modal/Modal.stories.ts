@@ -1,7 +1,8 @@
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { IStory } from '@storybook/angular';
 import { ModalService } from '@spartacus/storefront';
-import { Component, Input, NgModule } from '@angular/core';
 import { select, boolean, text } from '@storybook/addon-knobs';
+import { Component, Input, NgModule } from '@angular/core';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
 
 @Component({
   template: `<div>
@@ -11,7 +12,7 @@ import { select, boolean, text } from '@storybook/addon-knobs';
 })
 class ModalContentComponent {
   @Input()
-  content: any;
+  content: string;
 
   constructor(protected modalService: ModalService) {}
 
@@ -25,22 +26,23 @@ class ModalContentComponent {
 })
 class ModalHostComponent {
   @Input()
-  size: any;
+  size: string;
   @Input()
   centered: boolean;
   @Input()
-  content: any;
+  content: string;
 
   constructor(protected modalService: ModalService) {
     this.openModal();
   }
 
-  openModal() {
+  openModal(): void {
     const modalRef = this.modalService.open(ModalContentComponent, {
       centered: this.centered,
       size: this.size,
     });
-    const modalInstance = modalRef.componentInstance;
+
+    const modalInstance = modalRef.componentInstance as Record<string, unknown>;
     modalInstance.content = this.content;
   }
 }
@@ -57,7 +59,7 @@ export default {
   decorators: [setupSpartacus([ModalHostModule], [])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: ModalHostComponent,
   props: {
     size: select('size', ['sm', 'lg', 'xl'], 'lg'),

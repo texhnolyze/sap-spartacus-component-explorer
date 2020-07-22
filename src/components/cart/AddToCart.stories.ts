@@ -1,18 +1,15 @@
-import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
-import {
-  AddToCartComponent,
-  AddToCartModule,
-  ModalService,
-} from '@spartacus/storefront';
+import { IStory } from '@storybook/angular';
 import { boolean, object, text } from '@storybook/addon-knobs';
-import { ActiveCartService } from '@spartacus/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { ActiveCartService, OrderEntry, Cart } from '@spartacus/core';
+import { AddToCartComponent, AddToCartModule } from '@spartacus/storefront';
 
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'id';
-    getEntry = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    getActiveCartId = (): Observable<string> => of('id');
+    getEntry = (): Observable<OrderEntry> =>
       of({
         quantity: 4,
         product: {
@@ -24,13 +21,16 @@ const ActiveCartServiceProvider = {
         },
         basePrice: { formattedValue: '10,50 €' },
         totalPrice: { formattedValue: '42 €' },
-        updateable: true,
+        updatable: true,
       });
-    addEntry = () => {};
-    updateEntry = () => {};
-    getActive = () =>
-      of({ deliveryItemsQuantity: 14, subTotal: { formattedValue: '140 €' } });
-    isStable = () => of(true);
+    addEntry = (): void => {};
+    updateEntry = (): void => {};
+    getActive = (): Observable<Cart> =>
+      of({
+        deliveryItemsQuantity: 14,
+        subTotal: { formattedValue: '140 €' },
+      });
+    isStable = (): Observable<boolean> => of(true);
   },
 };
 
@@ -39,7 +39,7 @@ export default {
   decorators: [setupSpartacus([AddToCartModule], [ActiveCartServiceProvider])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: AddToCartComponent,
   props: {
     productCode: text('productCode', '123-456-789'),
@@ -54,7 +54,7 @@ export const Default = () => ({
   },
 });
 
-export const OutOfStock = () => ({
+export const OutOfStock = (): IStory => ({
   component: AddToCartComponent,
   props: {
     productCode: text('productCode', '123-456-789'),

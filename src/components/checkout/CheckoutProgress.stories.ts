@@ -1,18 +1,27 @@
+import { IStory } from '@storybook/angular';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { PageContext, RouterState, RoutingService } from '@spartacus/core';
 import {
   CheckoutProgressComponent,
   CheckoutProgressModule,
 } from '@spartacus/storefront';
-import { RoutingService } from '@spartacus/core';
-import { of } from 'rxjs';
 
 const RoutingServiceProvider = {
   provide: RoutingService,
-  useClass: class RoutingServiceMock {
-    getPageContext = () => of({});
-    getRouterState = () =>
+  useClass: class RoutingServiceMock implements Partial<RoutingService> {
+    getPageContext = (): Observable<PageContext> =>
+      of({ id: '/checkout/payment-details' });
+    getRouterState = (): Observable<RouterState> =>
       of({
-        state: { context: { id: '/checkout/payment-details' } },
+        navigationId: 1,
+        state: {
+          url: 'shop.com/checkout/payment-details',
+          context: { id: '/checkout/payment-details' },
+          queryParams: [],
+          params: [],
+          cmsRequired: false,
+        },
       });
   },
 };
@@ -24,6 +33,6 @@ export default {
   ],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CheckoutProgressComponent,
 });

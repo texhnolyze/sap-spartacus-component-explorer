@@ -1,7 +1,8 @@
+import { IStory } from '@storybook/angular';
 import { text } from '@storybook/addon-knobs';
 import { action as logAction } from '@storybook/addon-actions';
 
-const props = () => ({
+const props = (): Record<string, unknown> => ({
   btnText: text('text', 'Add to cart'),
   click: logAction('button clicked'),
 });
@@ -10,22 +11,22 @@ export default {
   title: 'Base/Button',
 };
 
-export const primary = () => ({
+export const primary = (): IStory => ({
   props: props(),
   template: `<button type="submit" (click)="click($event)" class="btn btn-primary">{{btnText}}</button>`,
 });
 
-export const secondary = () => ({
+export const secondary = (): IStory => ({
   props: props(),
   template: `<button (click)="click($event)" class="btn btn-secondary">{{btnText}}</button>`,
 });
 
-export const action = () => ({
+export const action = (): IStory => ({
   props: props(),
   template: `<button (click)="click($event)" class="btn btn-action">{{btnText}}</button>`,
 });
 
-export const disabled = () => ({
+export const disabled = (): IStory => ({
   props: props(),
   template: `
     <button (click)="click($event)" class="btn btn-primary disabled">{{btnText}}</button>
@@ -34,7 +35,7 @@ export const disabled = () => ({
 `,
 });
 
-export const block = () => ({
+export const block = (): IStory => ({
   props: props(),
   template: `
     <button (click)="click($event)" class="btn btn-primary btn-block">{{btnText}}</button>
@@ -43,7 +44,7 @@ export const block = () => ({
 `,
 });
 
-export const all = () => ({
+export const all = (): IStory => ({
   props: props(),
   template: `
     <button (click)="click($event)" class="btn btn-primary">{{btnText}}</button>

@@ -1,24 +1,30 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { boolean, number } from '@storybook/addon-knobs';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
-import { PaymentFormComponent, PaymentFormModule } from '@spartacus/storefront';
 import {
+  Address,
+  Country,
+  CardType,
+  AddressValidation,
+  UserPaymentService,
   CheckoutDeliveryService,
   CheckoutPaymentService,
-  UserPaymentService,
 } from '@spartacus/core';
-import { of } from 'rxjs';
-import { boolean, number } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
+import { PaymentFormComponent, PaymentFormModule } from '@spartacus/storefront';
 
-let loading;
+let loading: boolean;
 
 const CheckoutDeliveryServiceProvider = {
   provide: CheckoutDeliveryService,
-  useClass: class CheckoutDeliveryServiceMock {
-    getAddressVerificationResults() {
-      return of({ decision: 'ACCEPT ' });
-    }
-    getDeliveryAddress() {
-      return of({
+  useClass: class CheckoutDeliveryServiceMock
+    implements Partial<CheckoutDeliveryService> {
+    getAddressVerificationResults = (): Observable<
+      AddressValidation | string
+    > => of({ decision: 'ACCEPT' });
+    getDeliveryAddress = (): Observable<Address> =>
+      of({
         firstName: 'Jensen',
         lastName: 'Osinski',
         line1: '9865 Hal Road',
@@ -26,22 +32,25 @@ const CheckoutDeliveryServiceProvider = {
         postalCode: 'MT 24603',
         country: { isocode: 'USA' },
       });
-    }
   },
 };
+
 const UserPaymentServiceProvider = {
   provide: UserPaymentService,
-  useClass: class UserPaymentServiceMock {
-    getAllBillingCountries() {
-      return of([{ isocode: 'de' }, { isocode: 'USA' }]);
-    }
+  useClass: class UserPaymentServiceMock
+    implements Partial<UserPaymentService> {
+    getAllBillingCountries = (): Observable<Country[]> =>
+      of([{ isocode: 'de' }, { isocode: 'USA' }]);
   },
 };
+
 const CheckoutPaymentServiceProvider = {
   provide: CheckoutPaymentService,
-  useClass: class CheckoutPaymentServiceMock {
-    getSetPaymentDetailsResultProcess = () => of({ loading });
-    getCardTypes = () =>
+  useClass: class CheckoutPaymentServiceMock
+    implements Partial<CheckoutPaymentService> {
+    getSetPaymentDetailsResultProcess = (): Observable<unknown> =>
+      of({ loading });
+    getCardTypes = (): Observable<CardType[]> =>
       of([
         {
           code: 'visa',
@@ -78,7 +87,7 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   loading = false;
   return {
     component: PaymentFormComponent,
@@ -92,7 +101,7 @@ export const Default = () => {
   };
 };
 
-export const Loading = () => {
+export const Loading = (): IStory => {
   loading = true;
   return {
     component: PaymentFormComponent,

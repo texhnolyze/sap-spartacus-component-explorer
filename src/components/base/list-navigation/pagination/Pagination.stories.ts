@@ -1,12 +1,13 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { number, text } from '@storybook/addon-knobs';
+import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import {
   PaginationComponent,
   PaginationConfig,
   PaginationModule,
 } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
 import { ActivatedRouteProvider } from './ActivatedRouteProvider';
-import { number, text } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
 
 const PaginationConfigProvider = {
   provide: PaginationConfig,
@@ -35,7 +36,7 @@ export default {
   ],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: PaginationComponent,
   props: {
     viewPageEvent: action('viewPageEvent'),

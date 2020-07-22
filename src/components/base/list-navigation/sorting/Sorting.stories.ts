@@ -1,14 +1,15 @@
-import { SortingComponent } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
-import { object, text } from '@storybook/addon-knobs';
+import { IStory } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
+import { object, text } from '@storybook/addon-knobs';
+import { setupSpartacus } from '../../../../spartacusStorybookModuleMetadata';
+import { SortingComponent } from '@spartacus/storefront';
 
 export default {
   title: 'Base/Sorting',
   decorators: [setupSpartacus([])],
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: SortingComponent,
   props: {
     sortOptions: object('sortOptions', [
@@ -28,7 +29,7 @@ export const Default = () => ({
   },
 });
 
-export const NoPreselection = () => ({
+export const NoPreselection = (): IStory => ({
   component: SortingComponent,
   props: {
     sortOptions: object('sortOptions', [
@@ -39,7 +40,7 @@ export const NoPreselection = () => ({
   },
 });
 
-export const Empty = () => ({
+export const Empty = (): IStory => ({
   component: SortingComponent,
   props: {
     sortOptions: object('sortOptions', []),

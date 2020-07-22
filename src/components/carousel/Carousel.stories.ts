@@ -1,6 +1,7 @@
-import { CarouselComponent, CarouselModule } from '@spartacus/storefront';
+import { IStory } from '@storybook/angular';
 import { of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { CarouselComponent, CarouselModule } from '@spartacus/storefront';
 
 export default {
   title: 'Carousel',
@@ -8,7 +9,7 @@ export default {
   component: CarouselComponent,
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CarouselComponent,
   template: `
     <cx-carousel

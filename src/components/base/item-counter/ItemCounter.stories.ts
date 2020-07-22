@@ -1,7 +1,8 @@
-import { ItemCounterComponent, ItemCounterModule } from '@spartacus/storefront';
-import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { IStory } from '@storybook/angular';
 import { boolean, number } from '@storybook/addon-knobs';
 import { FormControl } from '@angular/forms';
+import { setupSpartacus } from '../../../spartacusStorybookModuleMetadata';
+import { ItemCounterComponent, ItemCounterModule } from '@spartacus/storefront';
 
 export default {
   title: 'Base/ItemCounter',
@@ -9,7 +10,7 @@ export default {
   component: ItemCounterComponent,
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: ItemCounterComponent,
   props: {
     control: new FormControl(5),
@@ -22,7 +23,7 @@ export const Default = () => ({
 
 const control = new FormControl(3);
 control.disable();
-export const Disabled = () => ({
+export const Disabled = (): IStory => ({
   component: ItemCounterComponent,
   template: `<cx-item-counter [control]="control"></cx-item-counter>`,
   props: { control },

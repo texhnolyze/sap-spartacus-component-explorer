@@ -1,21 +1,25 @@
+import { IStory } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { Observable, of } from 'rxjs';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import {
+  Cart,
+  OrderEntry,
+  PromotionResult,
+  ActiveCartService,
+  AuthService,
+  SelectiveCartService,
+} from '@spartacus/core';
 import {
   CartDetailsComponent,
   CartDetailsModule,
   PromotionService,
 } from '@spartacus/storefront';
-import {
-  ActiveCartService,
-  AuthService,
-  SelectiveCartService,
-} from '@spartacus/core';
-import { of } from 'rxjs';
-import { action } from '@storybook/addon-actions';
 
-let isUserLoggedIn = true;
+const isUserLoggedIn = true;
 
-let cartEntries;
-const defaultCartEntries = [
+let cartEntries: OrderEntry[];
+const defaultCartEntries: OrderEntry[] = [
   {
     entryNumber: 0,
     quantity: 2,
@@ -30,7 +34,9 @@ const defaultCartEntries = [
       code: 'product-code-8525-86754-24356',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Handcrafted Metal Soap',
@@ -52,10 +58,11 @@ const defaultCartEntries = [
     },
     product: {
       code: '1992-693-7557-007',
-      configurable: false,
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Refined Wooden Computer',
@@ -76,7 +83,9 @@ const defaultCartEntries = [
       code: '8653-80123-74124',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          productPhoto: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Incredible Soft Sausages',
@@ -88,37 +97,41 @@ const defaultCartEntries = [
     },
   },
 ];
+
 const ActiveCartServiceProvider = {
   provide: ActiveCartService,
-  useClass: class ActiveCartServiceMock {
-    getActiveCartId = () => 'ActiveCartId';
-    getActive = () =>
+  useClass: class ActiveCartServiceMock implements Partial<ActiveCartService> {
+    removeEntry = action('ActiveCartService:removeEntry');
+    updateEntry = action('ActiveCartService:updateEntry');
+    getActiveCartId = (): Observable<string> => of('ActiveCartId');
+    getActive = (): Observable<Cart> =>
       of({
         totalItems: 4,
         code: '0000179210',
       });
-    getEntries = () => of(cartEntries);
-    isStable = () => of(true);
-    removeEntry = action('ActiveCartService:removeEntry');
-    updateEntry = action('ActiveCartService:updateEntry');
+    getEntries = (): Observable<OrderEntry[]> => of(cartEntries);
+    isStable = (): Observable<boolean> => of(true);
   },
 };
 
 const SelectiveCartServiceProvider = {
   provide: SelectiveCartService,
-  useClass: class SelectiveCartServiceMock {
-    isEnabled = () => true;
-    getLoaded = () => of(true);
+  useClass: class SelectiveCartServiceMock
+    implements Partial<SelectiveCartService> {
     addEntry = action('SelectiveCartServiceProvider:addEntry');
+    isEnabled = (): boolean => true;
+    getLoaded = (): Observable<boolean> => of(true);
   },
 };
 
 const PromotionServiceProvider = {
   provide: PromotionService,
-  useClass: class PromotionServiceMock {
-    getOrderPromotionsFromCart() {}
-    getProductPromotionForEntry() {}
-    getOrderPromotions = () =>
+  useClass: class PromotionServiceMock implements Partial<PromotionService> {
+    getOrderPromotionsFromCart = (): Observable<PromotionResult[]> =>
+      of(Array<PromotionResult>());
+    getProductPromotionForEntry = (): Observable<PromotionResult[]> =>
+      of(Array<PromotionResult>());
+    getOrderPromotions = (): Observable<PromotionResult[]> =>
       of([
         { description: 'Buy over $100.00 get free shipping' },
         { description: 'Buy over $200.00 get $20.00 discount on cart' },
@@ -128,9 +141,9 @@ const PromotionServiceProvider = {
 
 const AuthServiceProvider = {
   provide: AuthService,
-  useClass: class AuthServiceMock {
-    getOccUserId = () => of('id');
-    isUserLoggedIn = () => of(isUserLoggedIn);
+  useClass: class AuthServiceMock implements Partial<AuthService> {
+    getOccUserId = (): Observable<string> => of('id');
+    isUserLoggedIn = (): Observable<boolean> => of(isUserLoggedIn);
   },
 };
 
@@ -149,14 +162,14 @@ export default {
   ],
 };
 
-export const Default = () => {
+export const Default = (): IStory => {
   cartEntries = defaultCartEntries;
   return {
     component: CartDetailsComponent,
   };
 };
 
-export const EmptyCart = () => {
+export const EmptyCart = (): IStory => {
   cartEntries = [];
   return {
     component: CartDetailsComponent,

@@ -1,10 +1,10 @@
-import { NavigationService } from '@spartacus/storefront';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { NavigationNode, NavigationService } from '@spartacus/storefront';
 
 export const NavigationServiceProvider = {
   provide: NavigationService,
   useClass: class NavigationServiceMock {
-    getNavigationNode() {
+    getNavigationNode(): Observable<NavigationNode> {
       return of({
         children: [
           {

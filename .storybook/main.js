@@ -1,12 +1,12 @@
 module.exports = {
-  stories: ["../src/**/*.stories.ts"],
+  stories: ['../src/**/*.stories.ts'],
   addons: [
-    "@storybook/addon-actions",
-    "@storybook/addon-links",
-    "@storybook/addon-notes",
-    "@storybook/addon-storysource",
-    "@storybook/addon-knobs",
-    "@storybook/theming",
-    "@storybook/addon-backgrounds/register",
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-notes',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/theming',
+    '@storybook/addon-backgrounds/register',
   ],
 };

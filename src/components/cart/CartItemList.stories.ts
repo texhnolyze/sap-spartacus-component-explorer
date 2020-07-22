@@ -1,4 +1,6 @@
+import { IStory } from '@storybook/angular';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { OrderEntry } from '@spartacus/core';
 import { CartItemListComponent, CartSharedModule } from '@spartacus/storefront';
 import { boolean, object } from '@storybook/addon-knobs';
 
@@ -7,7 +9,7 @@ export default {
   decorators: [setupSpartacus([CartSharedModule])],
 };
 
-const items = [
+const items: OrderEntry[] = [
   {
     entryNumber: 0,
     quantity: 2,
@@ -22,7 +24,9 @@ const items = [
       code: 'product-code-8525-86754-24356',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Handcrafted Metal Soap',
@@ -44,10 +48,11 @@ const items = [
     },
     product: {
       code: '1992-693-7557-007',
-      configurable: false,
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Refined Wooden Computer',
@@ -68,7 +73,9 @@ const items = [
       code: '8653-80123-74124',
       images: {
         PRIMARY: {
-          url: 'https://placehold.jp/150x150.png?text=product-image',
+          thumbnail: {
+            url: 'https://placehold.jp/150x150.png?text=product-image',
+          },
         },
       },
       name: 'Incredible Soft Sausages',
@@ -81,7 +88,7 @@ const items = [
   },
 ];
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CartItemListComponent,
   props: {
     readonly: boolean('readonly', false),

@@ -1,17 +1,19 @@
+import { IStory } from '@storybook/angular';
+import { boolean, object } from '@storybook/addon-knobs';
+import { Observable, of } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import { setupSpartacus } from '../../spartacusStorybookModuleMetadata';
+import { OrderEntry, PromotionResult } from '@spartacus/core';
 import {
   CartItemComponent,
   CartSharedModule,
   PromotionService,
 } from '@spartacus/storefront';
-import { boolean, object } from '@storybook/addon-knobs';
-import { of } from 'rxjs';
-import { FormControl } from '@angular/forms';
 
 const PromotionServiceProvider = {
   provide: PromotionService,
-  useClass: class PromotionServiceMock {
-    getProductPromotionForEntry = () => {
+  useClass: class PromotionServiceMock implements Partial<PromotionService> {
+    getProductPromotionForEntry = (): Observable<PromotionResult[]> => {
       return of([
         { description: 'AppliedProductPromotion1' },
         { description: 'AppliedProductPromotion2' },
@@ -25,7 +27,7 @@ export default {
   decorators: [setupSpartacus([CartSharedModule], [PromotionServiceProvider])],
 };
 
-const item = {
+const item: OrderEntry = {
   entryNumber: 2,
   quantity: 21,
   updateable: true,
@@ -63,7 +65,7 @@ const item = {
   },
 };
 
-export const Default = () => ({
+export const Default = (): IStory => ({
   component: CartItemComponent,
   props: {
     compact: boolean('compact', false),
@@ -77,7 +79,7 @@ export const Default = () => ({
   },
 });
 
-export const Compact = () => ({
+export const Compact = (): IStory => ({
   component: CartItemComponent,
   props: {
     compact: boolean('compact', true),
@@ -86,7 +88,7 @@ export const Compact = () => ({
   },
 });
 
-export const SaveForLater = () => ({
+export const SaveForLater = (): IStory => ({
   component: CartItemComponent,
   props: {
     item: object('item', item),
