@@ -134,7 +134,8 @@ const SelectiveCartServiceProvider = {
 const CmsServiceProvider = {
   provide: CmsService,
   useClass: class CmsServiceMock implements Partial<CmsService> {
-    getComponentData = <T extends CmsComponent>(): Observable<T> =>
+    // @ts-ignore
+    getComponentData = () =>
       of({
         content: '<p>Empty Cart Info (EmptyCartParagraphComponent)</p>',
       });
